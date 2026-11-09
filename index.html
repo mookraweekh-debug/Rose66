@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Growing Dashboard | คู่มือปลูกกุหลาบ</title>
+<style>
+:root{--rose:#b84d69;--rose2:#e9a3b2;--leaf:#456b55;--leaf2:#78977b;--cream:#fffaf5;--ink:#29352e;--muted:#718078;--line:#eadfd9;--gold:#c99b54}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7f3ef;color:var(--ink);font-family:"Segoe UI",Tahoma,sans-serif;line-height:1.65}
+header{background:linear-gradient(120deg,#4a6b55,#78977b 58%,#b8c7a8);color:white;padding:34px max(5vw,24px) 42px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:340px;height:340px;border:1px solid #ffffff35;border-radius:50%;right:-70px;top:-140px;box-shadow:0 0 0 28px #ffffff0c,0 0 0 60px #ffffff0a}
+.topline{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.85}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;max-width:1200px;margin:auto}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.12;margin:12px 0}.hero p{max-width:650px;color:#f4f4e9;font-size:16px}
+.hero-art{width:100%;max-width:340px;justify-self:center;filter:drop-shadow(0 12px 18px #263b2b55)}
+nav{background:#fff;position:sticky;top:0;z-index:10;box-shadow:0 3px 15px #263b2b0c;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px}
+nav a{color:var(--leaf);text-decoration:none;font-size:13px;font-weight:700;padding:7px 12px;border-radius:20px}nav a:hover{background:#edf3ed}
+main{max-width:1200px;margin:28px auto;padding:0 22px}.section{margin:34px 0;scroll-margin-top:80px}.eyebrow{color:var(--rose);font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase}
+h2{font-size:25px;margin:3px 0 16px;color:#314b3b}h3{font-size:17px;margin:0 0 8px;color:#385642}.sub{color:var(--muted);margin-top:-10px}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,1fr)}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}
+.card{background:white;border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:0 5px 18px #45352a08}.stat{display:flex;gap:13px;align-items:center}.ico{width:44px;height:44px;border-radius:14px;background:#f8e8eb;display:grid;place-items:center;font-size:23px;flex-shrink:0}.stat strong{display:block;font-size:25px;color:var(--leaf);line-height:1.2}.stat small{color:var(--muted)}
+.callout{background:#edf3ec;border-left:4px solid var(--leaf2);padding:14px 17px;border-radius:10px;color:#405a47;margin:16px 0}
+.pill{display:inline-block;background:#f8e9ed;color:#9e405b;border-radius:30px;padding:4px 10px;font-size:12px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid #eee6e1;vertical-align:top}th{color:#456b55;background:#f5f8f3;font-size:13px}tr:last-child td{border-bottom:0}
+.mix{display:grid;gap:12px}.mixrow{display:grid;grid-template-columns:1.4fr 2fr auto;gap:10px;align-items:center;font-size:14px}.bar{height:10px;background:#f0e9e4;border-radius:20px;overflow:hidden}.bar span{height:100%;display:block;border-radius:20px;background:linear-gradient(90deg,#b84d69,#e6a4b0)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{background:white;border:1px solid var(--line);border-radius:16px;padding:15px}.num{width:30px;height:30px;background:var(--leaf);color:white;border-radius:50%;display:grid;place-items:center;font-weight:800;margin-bottom:9px}
+.plant{width:100%;height:150px;background:#f7f4ef;border-radius:14px;display:grid;place-items:center;margin-bottom:12px}
+.checklist label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed #e9dfd8;cursor:pointer}.checklist input{accent-color:var(--leaf);margin-top:5px}.checklist label:has(input:checked) span{text-decoration:line-through;color:#8b9990}
+.progress{height:9px;background:#eee8e2;border-radius:20px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;width:0;background:var(--leaf);transition:width .2s}
+.alert{border-radius:12px;padding:13px;background:#fff5e8;color:#805a2e;margin:9px 0;font-size:14px}.disease{border-left:4px solid #d69b52}
+footer{text-align:center;background:#385642;color:#eaf0e8;padding:28px 20px;margin-top:45px;font-size:13px}
+button{border:0;border-radius:22px;padding:9px 15px;background:var(--leaf);color:white;font-weight:700;cursor:pointer}button:hover{filter:brightness(1.08)}
+@media(max-width:850px){.stats{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.hero-art{max-width:220px;grid-row:1}}
+@media(max-width:560px){main{padding:0 14px}.stats,.two,.three,.steps{grid-template-columns:1fr}.mixrow{grid-template-columns:1.2fr 1fr auto;font-size:12px}nav{justify-content:flex-start;overflow:auto;flex-wrap:nowrap}nav a{white-space:nowrap}.card{padding:16px}}
+@media print{nav,button{display:none}body{background:white}.card{break-inside:avoid;box-shadow:none}header{print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header>
+ <div class="hero">
+  <div>
+   <div class="topline">GARDENING KNOWLEDGE • PRACTICAL GUIDE</div>
+   <h1>Rose Growing<br>Dashboard 🌹</h1>
+   <p>คู่มือปลูกกุหลาบให้แข็งแรง ดอกใหญ่ สีสด และออกดอกต่อเนื่อง ตั้งแต่การเลือกพันธุ์ เตรียมดิน ให้น้ำ บำรุง ไปจนถึงการป้องกันโรคและแมลง</p>
+   <span class="pill">ฉบับปรับใช้กับสภาพอากาศประเทศไทย</span>
+  </div>
+  <svg class="hero-art" viewBox="0 0 320 300" role="img" aria-label="ภาพวาดดอกกุหลาบสีชมพู">
+   <path d="M160 280 C155 220 170 175 145 115 M160 235 C210 215 220 180 230 160" fill="none" stroke="#d9e5cf" stroke-width="8" stroke-linecap="round"/>
+   <path d="M159 224 C105 190 88 220 123 239 C143 247 155 238 159 224 M191 205 C228 172 255 190 230 213 C214 225 199 218 191 205" fill="#91ad83" stroke="#e0ead8" stroke-width="2"/>
+   <g transform="translate(157 93)">
+    <ellipse rx="28" ry="55" fill="#c94e70" transform="rotate(0)"/>
+    <ellipse rx="28" ry="55" fill="#e58aa0" transform="rotate(60)"/>
+    <ellipse rx="28" ry="55" fill="#d96885" transform="rotate(120)"/>
+    <ellipse rx="19" ry="39" fill="#f2a6b6" transform="rotate(30)"/>
+    <ellipse rx="18" ry="33" fill="#b83f62" transform="rotate(90)"/>
+    <path d="M-8 4 C-20 -17 7 -28 16 -8 C24 8 2 23 -8 4" fill="#f6bdc8"/>
+    <circle cx="0" cy="0" r="8" fill="#f8d9a1"/>
+   </g>
+   <g fill="#f6c6d0"><circle cx="65" cy="95" r="5"/><circle cx="250" cy="70" r="7"/><circle cx="260" cy="130" r="4"/><circle cx="82" cy="155" r="3"/></g>
+  </svg>
+ </div>
+</header>
+<nav>
+ <a href="#overview">ภาพรวม</a><a href="#varieties">สายพันธุ์</a><a href="#soil">สูตรดิน</a><a href="#planting">วิธีปลูก</a><a href="#care">ดูแลประจำ</a><a href="#fertilizer">ปุ๋ย</a><a href="#pruning">ตัดแต่ง</a><a href="#problems">โรคและแมลง</a><a href="#plan">แผน 60 วัน</a>
+</nav>
+<main>
+<section class="section" id="overview">
+ <div class="eyebrow">01 / QUICK OVERVIEW</div><h2>หลักสำคัญของกุหลาบที่สวยและแข็งแรง</h2>
+ <div class="grid stats">
+  <div class="card stat"><div class="ico">☀️</div><div><strong>6+ ชม.</strong><small>แสงแดดต่อวัน</small></div></div>
+  <div class="card stat"><div class="ico">🌱</div><div><strong>5.5–6.5</strong><small>ค่า pH ดินเป้าหมาย</small></div></div>
+  <div class="card stat"><div class="ico">💧</div><div><strong>สม่ำเสมอ</strong><small>ชื้นแต่ไม่แฉะ</small></div></div>
+  <div class="card stat"><div class="ico">🍃</div><div><strong>โปร่ง</strong><small>อากาศถ่ายเทดี</small></div></div>
+ </div>
+ <div class="callout"><b>หัวใจสำคัญ:</b> ทำให้รากแข็งแรงก่อน แล้วจึงบำรุงยอดและดอก แสงแดด ดินระบายน้ำดี และการให้น้ำอย่างเหมาะสมสำคัญกว่าการเร่งปุ๋ย</div>
+</section>
+
+<section class="section" id="varieties">
+ <div class="eyebrow">02 / CHOOSE YOUR ROSE</div><h2>เลือกพันธุ์ให้ตรงกับเป้าหมาย</h2>
+ <div class="grid three">
+  <div class="card"><div class="plant"><svg viewBox="0 0 180 130" width="170"><path d="M90 115V60" stroke="#64815e" stroke-width="5"/><path d="M90 91Q48 60 42 89Q62 111 90 91M90 98Q132 64 142 91Q120 113 90 98" fill="#86a77b"/><g fill="#d85f7c"><ellipse cx="90" cy="45" rx="17" ry="30"/><ellipse cx="72" cy="43" rx="16" ry="25" transform="rotate(-45 72 43)"/><ellipse cx="108" cy="43" rx="16" ry="25" transform="rotate(45 108 43)"/></g><circle cx="90" cy="43" r="9" fill="#f3c17e"/></svg></div><h3>Hybrid Tea</h3><p>ดอกใหญ่ ก้านยาว มักออกดอกเดี่ยว เหมาะสำหรับตัดแจกัน</p><span class="pill">เน้นดอกใหญ่</span></div>
+  <div class="card"><div class="plant"><svg viewBox="0 0 180 130" width="170"><path d="M90 118V70M90 90L45 65M90 90L135 62" stroke="#64815e" stroke-width="5"/><g fill="#df7790"><circle cx="45" cy="55" r="19"/><circle cx="70" cy="47" r="18"/><circle cx="91" cy="60" r="19"/><circle cx="116" cy="44" r="18"/><circle cx="139" cy="55" r="18"/></g><g fill="#f5c4ce"><circle cx="45" cy="55" r="7"/><circle cx="70" cy="47" r="7"/><circle cx="91" cy="60" r="7"/><circle cx="116" cy="44" r="7"/><circle cx="139" cy="55" r="7"/></g></svg></div><h3>Floribunda</h3><p>ออกดอกเป็นช่อ มีดอกจำนวนมาก เหมาะกับสวนที่ต้องการสีสัน</p><span class="pill">เน้นดอกดก</span></div>
+  <div class="card"><div class="plant"><svg viewBox="0 0 180 130" width="170"><path d="M90 120Q70 78 90 35Q105 5 125 34" fill="none" stroke="#64815e" stroke-width="5"/><g fill="#e78ca2"><ellipse cx="90" cy="48" rx="28" ry="17"/><ellipse cx="90" cy="48" rx="17" ry="28" transform="rotate(45 90 48)"/><ellipse cx="90" cy="48" rx="17" ry="28" transform="rotate(-45 90 48)"/></g><circle cx="90" cy="48" r="10" fill="#f6d5a1"/></svg></div><h3>English Rose</h3><p>กลีบซ้อนแน่น ทรงดอกโรแมนติก หลายพันธุ์มีกลิ่นหอม</p><span class="pill">เน้นทรงดอกและกลิ่น</span></div>
+  <div class="card"><div class="plant"><svg viewBox="0 0 180 130" width="170"><path d="M90 120V72" stroke="#64815e" stroke-width="5"/><g fill="#dc718a"><circle cx="65" cy="65" r="12"/><circle cx="90" cy="48" r="14"/><circle cx="114" cy="65" r="12"/><circle cx="90" cy="78" r="11"/></g><g fill="#f4bdc9"><circle cx="65" cy="65" r="5"/><circle cx="90" cy="48" r="6"/><circle cx="114" cy="65" r="5"/></g></svg></div><h3>Miniature Rose</h3><p>ต้นและดอกขนาดเล็ก เหมาะกับกระถาง ระเบียง และพื้นที่จำกัด</p><span class="pill">พื้นที่น้อย</span></div>
+  <div class="card"><div class="plant"><svg viewBox="0 0 180 130" width="170"><path d="M35 118Q70 85 55 45Q45 20 78 14Q102 10 100 45Q92 80 140 100" fill="none" stroke="#64815e" stroke-width="5"/><g fill="#d96b83"><circle cx="78" cy="23" r="17"/><circle cx="52" cy="48" r="13"/><circle cx="111" cy="72" r="16"/></g><g fill="#f5c5cf"><circle cx="78" cy="23" r="6"/><circle cx="52" cy="48" r="5"/><circle cx="111" cy="72" r="6"/></g></svg></div><h3>Climbing Rose</h3><p>กิ่งยาวเลื้อยตามซุ้ม รั้ว หรือโครงพยุง ต้องมีพื้นที่และที่ยึดเกาะ</p><span class="pill">ทำซุ้มและแนวรั้ว</span></div>
+  <div class="card"><div class="plant"><svg viewBox="0 0 180 130" width="170"><path d="M90 120V55M90 90Q45 70 40 100M90 95Q135 60 145 100" stroke="#64815e" stroke-width="5" fill="none"/><g fill="#d86e86"><circle cx="70" cy="48" r="20"/><circle cx="105" cy="43" r="22"/></g><g fill="#f5c3ce"><circle cx="70" cy="48" r="9"/><circle cx="105" cy="43" r="10"/></g></svg></div><h3>Shrub Rose</h3><p>ทรงพุ่มแข็งแรง มีหลายพันธุ์ที่ดูแลง่าย เหมาะกับการปลูกประดับสวน</p><span class="pill">ปลูกเป็นพุ่ม</span></div>
+ </div>
+ <div class="callout">สำหรับประเทศไทย ให้เลือกพันธุ์ที่มีข้อมูลว่าทนร้อนและทนโรคในพื้นที่จริง อย่าตัดสินจากภาพดอกเพียงอย่างเดียว</div>
+</section>
+
+<section class="section" id="soil">
+ <div class="eyebrow">03 / SOIL MIX</div><h2>สูตรดินปลูกกุหลาบ 10 ส่วน</h2><p class="sub">เน้นร่วนโปร่ง อุ้มน้ำพอเหมาะ และระบายน้ำได้ดี</p>
+ <div class="grid two">
+  <div class="card mix">
+   <div class="mixrow"><b>ดินร่วนคุณภาพดี</b><div class="bar"><span style="width:100%"></span></div><b>4 ส่วน</b></div>
+   <div class="mixrow"><b>ปุ๋ยหมักสลายตัวดี</b><div class="bar"><span style="width:50%"></span></div><b>2 ส่วน</b></div>
+   <div class="mixrow"><b>กาบ/ขุยมะพร้าว</b><div class="bar"><span style="width:50%"></span></div><b>2 ส่วน</b></div>
+   <div class="mixrow"><b>แกลบดำ</b><div class="bar"><span style="width:25%"></span></div><b>1 ส่วน</b></div>
+   <div class="mixrow"><b>เพอร์ไลต์/หินภูเขาไฟ</b><div class="bar"><span style="width:25%"></span></div><b>1 ส่วน</b></div>
+  </div>
+  <div class="card"><h3>วิธีเตรียมดิน</h3><ol><li>ร่อนดินและเอาเศษวัชพืชออก</li><li>ผสมดินกับปุ๋ยหมักเก่าที่สลายตัวดี</li><li>เติมวัสดุโปร่งและคลุกให้ทั่ว</li><li>ตรวจ pH เป้าหมาย 5.5–6.5</li><li>ทดลองรดน้ำ ต้องไม่มีน้ำขังนาน</li></ol><div class="alert">⚠️ ห้ามใช้ปุ๋ยคอกสด เพราะอาจมีความร้อนและเกลือสูง ทำให้รากเสียหาย</div></div>
+ </div>
+</section>
+
+<section class="section" id="planting">
+ <div class="eyebrow">04 / PLANTING STEPS</div><h2>ขั้นตอนปลูกกุหลาบ 4 ขั้น</h2>
+ <div class="steps">
+  <div class="step"><div class="num">1</div><h3>เตรียมภาชนะ</h3><p>เลือกกระถางมีรูระบายน้ำ ขนาดเริ่มต้นประมาณ 12–16 นิ้วสำหรับต้นขนาดกลาง</p></div>
+  <div class="step"><div class="num">2</div><h3>ตรวจราก</h3><p>นำต้นออกอย่างระมัดระวัง ตรวจรากดำ เละ หรือมีกลิ่นผิดปกติ</p></div>
+  <div class="step"><div class="num">3</div><h3>ลงปลูก</h3><p>วางต้นให้ระดับดินใกล้เคียงเดิม เติมดินรอบรากและกดเบา ๆ</p></div>
+  <div class="step"><div class="num">4</div><h3>รดน้ำและพักฟื้น</h3><p>รดให้ชุ่ม วางแดดเช้า หลีกเลี่ยงแดดบ่ายจัดในช่วงตั้งตัว</p></div>
+ </div>
+ <div class="callout">ต้นที่เสียบยอดควรตรวจตำแหน่งรอยต่อระหว่างต้นตอกับกิ่งพันธุ์ดี และทำตามคำแนะนำเฉพาะของพันธุ์นั้น</div>
+</section>
+
+<section class="section" id="care">
+ <div class="eyebrow">05 / DAILY CARE</div><h2>แสงแดดและการให้น้ำ</h2>
+ <div class="grid two">
+  <div class="card"><h3>☀️ แสงแดด</h3><ul><li>ให้ได้รับแสงอย่างน้อย 6 ชั่วโมงต่อวัน</li><li>เน้นแดดช่วงเช้า</li><li>พื้นที่ร้อนจัดอาจพรางแสงช่วงบ่ายประมาณ 20–30% และสังเกตอาการต้น</li><li>เว้นระยะให้ลมผ่าน ไม่ปลูกชิดกัน</li></ul></div>
+  <div class="card"><h3>💧 การให้น้ำ</h3><ul><li>รดบริเวณโคนต้นในตอนเช้า</li><li>ตรวจดินลึกประมาณ 2–3 ซม. ก่อนรด</li><li>ถ้าดินยังชื้นให้รอก่อน</li><li>ปรับตามอากาศ กระถาง และชนิดดิน</li><li>ช่วงฝนตกให้ลดหรือหยุดน้ำเมื่อดินชื้นพอ</li></ul></div>
+ </div>
+ <div class="card" style="margin-top:16px"><h3>แนวทางปรับน้ำตามสภาพอากาศ</h3><table><tr><th>สภาพอากาศ</th><th>แนวทาง</th></tr><tr><td>ร้อนและแห้ง</td><td>ตรวจความชื้นทุกวัน อาจต้องรดทุกวัน</td></tr><tr><td>อากาศปกติ</td><td>รดเมื่อหน้าดินเริ่มแห้งและดินด้านล่างยังชื้นเล็กน้อย</td></tr><tr><td>ฝนตกต่อเนื่อง</td><td>ลดน้ำ ตรวจรูระบายน้ำและอย่าให้กระถางแช่น้ำ</td></tr><tr><td>ฤดูหนาว</td><td>ลดความถี่ตามการระเหยของน้ำ</td></tr></table></div>
+</section>
+
+<section class="section" id="fertilizer">
+ <div class="eyebrow">06 / FERTILIZER</div><h2>ธาตุอาหารและการให้ปุ๋ย</h2>
+ <div class="grid three">
+  <div class="card"><span class="pill">N</span><h3>ไนโตรเจน</h3><p>ช่วยสร้างใบและลำต้น หากมากเกินไปอาจได้ใบมากแต่ดอกน้อย</p></div>
+  <div class="card"><span class="pill">P</span><h3>ฟอสฟอรัส</h3><p>มีบทบาทต่อการเจริญของรากและกระบวนการใช้พลังงานของพืช</p></div>
+  <div class="card"><span class="pill">K</span><h3>โพแทสเซียม</h3><p>ช่วยควบคุมสมดุลน้ำและกระบวนการทำงานต่าง ๆ ของพืช</p></div>
+ </div>
+ <div class="card" style="margin-top:16px"><h3>แนวทางตามระยะการเติบโต</h3><table><tr><th>ระยะ</th><th>แนวทาง</th></tr><tr><td>หลังปลูกใหม่</td><td>รอให้รากตั้งตัวก่อน ไม่เร่งปุ๋ยเข้มข้น</td></tr><tr><td>แตกยอดและใบ</td><td>ใช้ปุ๋ยสูตรสมดุลตามฉลาก</td></tr><tr><td>ก่อนออกดอก</td><td>ใช้ปุ๋ยสำหรับไม้ดอกตามคำแนะนำผลิตภัณฑ์</td></tr><tr><td>ระหว่างออกดอก</td><td>ให้ตามความต้องการ ไม่เพิ่มปริมาณเกินจำเป็น</td></tr><tr><td>หลังตัดดอก</td><td>ฟื้นฟูด้วยน้ำและธาตุอาหารตามสภาพต้น</td></tr></table><div class="alert">ไม่ใส่ปุ๋ยขณะดินแห้งจัด ไม่วางปุ๋ยชิดโคน และยึดอัตราบนฉลากเป็นหลัก</div></div>
+</section>
+
+<section class="section" id="pruning">
+ <div class="eyebrow">07 / PRUNING</div><h2>ตัดแต่งกิ่งเพื่อกระตุ้นยอดใหม่</h2>
+ <div class="grid two">
+  <div class="card"><h3>กิ่งที่ควรตัด</h3><ul><li>กิ่งแห้งและกิ่งตาย</li><li>กิ่งเป็นโรคหรือเสียหาย</li><li>กิ่งเล็กอ่อนแอ</li><li>กิ่งไขว้หรือเสียดสีกัน</li><li>กิ่งที่งอกเข้ากลางพุ่ม</li><li>ดอกโรยและดอกเสียหาย</li></ul></div>
+  <div class="card"><h3>วิธีตัดอย่างถูกต้อง</h3><ol><li>ใช้กรรไกรคมและสะอาด</li><li>ตัดส่วนแห้งหรือเป็นโรคก่อน</li><li>ตัดเหนือข้อหรือตาที่หันออกด้านนอก</li><li>ตัดเฉียงเล็กน้อย</li><li>อย่าตัดใบดีออกมากเกินไป</li></ol><p class="sub">การตัดดอกโรยช่วยให้ต้นไม่เสียพลังงานไปกับการสร้างผล และส่งเสริมการออกดอกซ้ำในพันธุ์ที่ออกดอกต่อเนื่อง</p></div>
+ </div>
+</section>
+
+<section class="section" id="problems">
+ <div class="eyebrow">08 / PLANT HEALTH</div><h2>เฝ้าระวังโรคและแมลง</h2>
+ <div class="grid two">
+  <div class="card"><h3>🍂 โรคที่พบบ่อย</h3>
+   <div class="alert disease"><b>ใบจุดดำ:</b> จุดดำบนใบ ใบเหลืองและร่วง — เก็บใบป่วย ลดความชื้นบนใบ</div>
+   <div class="alert disease"><b>ราแป้ง:</b> ผงขาวบนใบและยอด — เพิ่มการถ่ายเทอากาศ</div>
+   <div class="alert disease"><b>รากเน่า:</b> รากคล้ำ ต้นเหี่ยว — แก้ดินแฉะและระบบระบายน้ำ</div>
+   <div class="alert disease"><b>กิ่งแห้ง:</b> กิ่งเปลี่ยนสีและแห้งตาย — ตัดส่วนป่วยด้วยเครื่องมือสะอาด</div>
+  </div>
+  <div class="card"><h3>🐛 แมลงศัตรู</h3>
+   <div class="alert"><b>เพลี้ยอ่อน:</b> เกาะยอดและดอกตูม — ฉีดน้ำเบา ๆ และกำจัดแหล่งสะสม</div>
+   <div class="alert"><b>ไรแดง:</b> ใบมีจุดซีด ใต้ใบอาจมีใย — ตรวจใต้ใบอย่างใกล้ชิด</div>
+   <div class="alert"><b>เพลี้ยไฟ:</b> ดอกมีรอยสีน้ำตาล กลีบบิด — ตัดดอกเสียหายและตรวจยอด</div>
+   <div class="alert"><b>หนอนกัดใบ:</b> ใบเป็นรู — เก็บหนอนและตรวจใต้ใบ</div>
+  </div>
+ </div>
+ <div class="callout"><b>หลัก IPM:</b> ตรวจต้นอย่างน้อยสัปดาห์ละ 2 ครั้ง เก็บส่วนป่วย เพิ่มอากาศถ่ายเท และใช้สารป้องกันกำจัดเฉพาะเมื่อจำเป็น โดยเลือกผลิตภัณฑ์ที่ขึ้นทะเบียนและทำตามฉลาก</div>
+</section>
+
+<section class="section" id="plan">
+ <div class="eyebrow">09 / 60-DAY PLAN</div><h2>แผนดูแลกุหลาบ 60 วัน</h2>
+ <p class="sub">เช็กลิสต์ตัวอย่างสำหรับต้นที่ปลูกใหม่ ปรับตามพันธุ์และสภาพต้นจริง</p>
+ <div class="grid two">
+  <div class="card checklist">
+   <h3>รายการตรวจติดตาม</h3>
+   <div class="progress"><span id="progressBar"></span></div><small id="progressText">ทำแล้ว 0 จาก 12 รายการ</small>
+   <label><input type="checkbox"><span>วันที่ 1–7: ปลูกในวัสดุปลูกที่ระบายน้ำดี</span></label>
+   <label><input type="checkbox"><span>วันที่ 1–7: ให้น้ำและแสงเช้าอย่างเหมาะสม</span></label>
+   <label><input type="checkbox"><span>วันที่ 8–14: ตรวจยอดใหม่และใบเหลือง</span></label>
+   <label><input type="checkbox"><span>วันที่ 8–14: ตรวจการระบายน้ำ</span></label>
+   <label><input type="checkbox"><span>วันที่ 15–30: เริ่มให้ปุ๋ยเมื่อรากตั้งตัว</span></label>
+   <label><input type="checkbox"><span>วันที่ 15–30: ตรวจโรคและแมลง</span></label>
+   <label><input type="checkbox"><span>วันที่ 15–30: จัดทรงกิ่งให้โปร่ง</span></label>
+   <label><input type="checkbox"><span>วันที่ 31–45: ตรวจตาดอกและยอด</span></label>
+   <label><input type="checkbox"><span>วันที่ 31–45: รักษาความชื้นสม่ำเสมอ</span></label>
+   <label><input type="checkbox"><span>วันที่ 46–60: เฝ้าระวังเพลี้ยไฟและไรแดง</span></label>
+   <label><input type="checkbox"><span>วันที่ 46–60: ตัดดอกเสียหายเมื่อจำเป็น</span></label>
+   <label><input type="checkbox"><span>วันที่ 46–60: ประเมินการเติบโตและปรับการดูแล</span></label>
+   <button onclick="document.querySelectorAll('.checklist input').forEach(x=>x.checked=false);updateProgress()" style="margin-top:12px">ล้างเช็กลิสต์</button>
+  </div>
+  <div class="card"><h3>ไทม์ไลน์การเติบโต</h3>
+   <div class="step" style="margin-bottom:10px"><div class="num">01</div><b>วัน 1–7 · ตั้งตัว</b><p>ปลูก รดน้ำ และให้แสงเช้า</p></div>
+   <div class="step" style="margin-bottom:10px"><div class="num">02</div><b>วัน 8–14 · ฟื้นตัว</b><p>สังเกตยอดใหม่และตรวจรากทางอ้อมจากอาการต้น</p></div>
+   <div class="step" style="margin-bottom:10px"><div class="num">03</div><b>วัน 15–30 · สร้างพุ่ม</b><p>เริ่มบำรุงเมื่อรากตั้งตัวและจัดทรงกิ่ง</p></div>
+   <div class="step" style="margin-bottom:10px"><div class="num">04</div><b>วัน 31–60 · เตรียมและพัฒนาดอก</b><p>ดูแลน้ำ แสง ธาตุอาหาร และแมลงอย่างต่อเนื่อง</p></div>
+   <div class="alert">ระยะเวลาออกดอกจริงไม่ตายตัว บางต้นอาจใช้เวลานานกว่า 60 วัน โดยเฉพาะต้นที่เพิ่งย้ายปลูกหรือกำลังฟื้นตัว</div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="eyebrow">10 / TROUBLESHOOTING</div><h2>วิเคราะห์อาการเบื้องต้น</h2>
+ <div class="card"><table><tr><th>อาการ</th><th>สาเหตุที่เป็นไปได้</th><th>สิ่งที่ควรตรวจ</th></tr>
+ <tr><td>ใบเหลือง</td><td>น้ำมาก ขาดธาตุอาหาร หรือรากมีปัญหา</td><td>ความชื้น ราก และค่า pH</td></tr>
+ <tr><td>ใบเขียวแต่ไม่ออกดอก</td><td>แสงน้อย ไนโตรเจนมาก หรือยังไม่ถึงรอบ</td><td>ชั่วโมงแสงและสูตรปุ๋ย</td></tr>
+ <tr><td>ดอกเล็ก</td><td>ต้นไม่สมบูรณ์ อากาศร้อน หรือดอกมากเกินไป</td><td>สุขภาพต้นและจำนวนตาดอก</td></tr>
+ <tr><td>ดอกตูมร่วง</td><td>น้ำไม่สม่ำเสมอ ความร้อน หรือเพลี้ยไฟ</td><td>ความชื้น อุณหภูมิ และแมลง</td></tr>
+ <tr><td>ต้นเหี่ยวทั้งที่รดน้ำ</td><td>รากเน่าหรือรากดูดน้ำผิดปกติ</td><td>ตรวจรากและการระบายน้ำ</td></tr></table></div>
+</section>
+
+<section class="section">
+ <div class="eyebrow">11 / SUCCESS FORMULA</div><h2>สูตรจำง่าย: รากดี ใบแน่น ดอกสวย</h2>
+ <div class="grid three">
+  <div class="card"><div class="ico">🌿</div><h3>รากแข็งแรง</h3><p>ดินโปร่ง ระบายน้ำดี ไม่แฉะ</p></div>
+  <div class="card"><div class="ico">☀️</div><h3>ใบสมบูรณ์</h3><p>แดดเพียงพอ น้ำและธาตุอาหารสมดุล</p></div>
+  <div class="card"><div class="ico">🌹</div><h3>ดอกมีคุณภาพ</h3><p>ตัดแต่งถูกจังหวะ เฝ้าระวังโรคและแมลง</p></div>
+ </div>
+</section>
+</main>
+<footer>ROSE GROWING DASHBOARD · คู่มือดูแลกุหลาบสำหรับสวนในประเทศไทย<br>ข้อมูลเป็นแนวทางทั่วไป ควรปรับตามสายพันธุ์ วัสดุปลูก และสภาพอากาศจริง</footer>
+<script>
+function updateProgress(){
+ const boxes=[...document.querySelectorAll('.checklist input')],done=boxes.filter(x=>x.checked).length;
+ document.getElementById('progressBar').style.width=(done/boxes.length*100)+'%';
+ document.getElementById('progressText').textContent=`ทำแล้ว ${done} จาก ${boxes.length} รายการ`;
+}
+document.querySelectorAll('.checklist input').forEach(x=>x.addEventListener('change',updateProgress));
+</script>
+</body></html>
